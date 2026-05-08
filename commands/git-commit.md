@@ -94,7 +94,7 @@ Files:     {count} file(s) changed
 
 Next steps:
   - git push           → push to remote
-  - /prp-pr            → create a pull request
+  - /git pr            → create a pull request
   - /code-review       → review before pushing
 ```
 
@@ -104,9 +104,9 @@ Next steps:
 
 | You say | What happens |
 |---|---|
-| `/prp-commit` | Stages all, auto-generates message |
-| `/prp-commit staged` | Commits only what's already staged |
-| `/prp-commit *.ts` | Stages all TypeScript files, commits |
-| `/prp-commit except tests` | Stages everything except test files |
-| `/prp-commit the database migration` | Finds DB migration files from status, stages them |
-| `/prp-commit only new files` | Stages untracked files only |
+| `/git commit` | Stages all, auto-generates message |
+| `/git commit staged` | Commits only what's already staged |
+| `/git commit *.ts` | Stages all TypeScript files, commits |
+| `/git commit except tests` | Stages everything except test files |
+| `/git commit the database migration` | Finds DB migration files from status, stages them |
+| `/git commit only new files` | Stages untracked files only |

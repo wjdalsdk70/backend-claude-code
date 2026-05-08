@@ -498,5 +498,4 @@ A developer unfamiliar with this codebase should be able to implement the featur
 
 - Run `/prp-implement <plan-path>` to execute this plan
 - Run `/plan` for quick conversational planning without artifacts
-- Run `/prp-prd` to create a PRD first if scope is unclear
 ````
