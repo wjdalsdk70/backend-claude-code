@@ -15,25 +15,60 @@ fi
 # .claude 하위 디렉토리 생성
 mkdir -p "$TARGET/.claude"/{rules/common,rules/java,agents,commands,skills}
 
-# rules 복사 (공통 + Java)
+# rules 복사 (공통 + Java) — 기존 파일 스킵
 echo "  rules 복사..."
-cp -r "$SCRIPT_DIR/rules/common/." "$TARGET/.claude/rules/common/"
-cp -r "$SCRIPT_DIR/rules/java/." "$TARGET/.claude/rules/java/"
+for rule_dir in common java; do
+  for src in "$SCRIPT_DIR/rules/$rule_dir/"*.md; do
+    [ -f "$src" ] || continue
+    fname=$(basename "$src")
+    dest="$TARGET/.claude/rules/$rule_dir/$fname"
+    if [ -f "$dest" ]; then
+      echo "    rules/$rule_dir/$fname 이미 존재합니다. 스킵합니다."
+    else
+      cp "$src" "$dest"
+      echo "    rules/$rule_dir/$fname 복사 완료"
+    fi
+  done
+done
 
-# agents 복사
+# agents 복사 — 기존 파일 스킵
 echo "  agents 복사..."
-cp "$SCRIPT_DIR/agents/"*.md "$TARGET/.claude/agents/"
+for src in "$SCRIPT_DIR/agents/"*.md; do
+  fname=$(basename "$src")
+  dest="$TARGET/.claude/agents/$fname"
+  if [ -f "$dest" ]; then
+    echo "    agents/$fname 이미 존재합니다. 스킵합니다."
+  else
+    cp "$src" "$dest"
+    echo "    agents/$fname 복사 완료"
+  fi
+done
 
-# commands 복사
+# commands 복사 — 기존 파일 스킵
 echo "  commands 복사..."
-cp "$SCRIPT_DIR/commands/"*.md "$TARGET/.claude/commands/"
+for src in "$SCRIPT_DIR/commands/"*.md; do
+  fname=$(basename "$src")
+  dest="$TARGET/.claude/commands/$fname"
+  if [ -f "$dest" ]; then
+    echo "    commands/$fname 이미 존재합니다. 스킵합니다."
+  else
+    cp "$src" "$dest"
+    echo "    commands/$fname 복사 완료"
+  fi
+done
 
-# skills 복사
+# skills 복사 — 기존 파일 스킵
 echo "  skills 복사..."
 for skill_dir in "$SCRIPT_DIR/skills"/*/; do
   skill_name=$(basename "$skill_dir")
   mkdir -p "$TARGET/.claude/skills/$skill_name"
-  cp "$skill_dir/SKILL.md" "$TARGET/.claude/skills/$skill_name/"
+  dest="$TARGET/.claude/skills/$skill_name/SKILL.md"
+  if [ -f "$dest" ]; then
+    echo "    skills/$skill_name/SKILL.md 이미 존재합니다. 스킵합니다."
+  else
+    cp "$skill_dir/SKILL.md" "$dest"
+    echo "    skills/$skill_name/SKILL.md 복사 완료"
+  fi
 done
 
 # settings.json 복사 (기존 파일이 있으면 병합 필요하다고 안내)
