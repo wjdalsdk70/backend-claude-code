@@ -29,7 +29,7 @@ commands:
   - verify
   - db-migrate
   - dev-plan
-  - dev-impl
+  - dev-run
   - git-commit
   - git-pr
   - review-pr
