@@ -70,15 +70,6 @@ else
   echo "  Dockerfile 복사 완료 — JAVA_VERSION, APP_PORT를 프로젝트에 맞게 수정하세요"
 fi
 
-# GitHub Actions CI 워크플로우 복사 (기존 파일 있으면 스킵)
-if [ -f "$TARGET/.github/workflows/ci.yml" ]; then
-  echo "  .github/workflows/ci.yml 이미 존재합니다. 스킵합니다."
-else
-  mkdir -p "$TARGET/.github/workflows"
-  cp "$SCRIPT_DIR/.github/workflows/ci.yml" "$TARGET/.github/workflows/ci.yml"
-  echo "  .github/workflows/ci.yml 복사 완료 — secrets 설정 및 TODO 항목을 확인하세요"
-fi
-
 # GitHub PR 템플릿 복사 (기존 파일 있으면 스킵)
 if [ -f "$TARGET/.github/PULL_REQUEST_TEMPLATE.md" ]; then
   echo "  .github/PULL_REQUEST_TEMPLATE.md 이미 존재합니다. 스킵합니다."
@@ -108,5 +99,4 @@ echo "다음 단계:"
 echo "  1. $TARGET/CLAUDE.md 를 프로젝트에 맞게 수정하세요"
 echo "  2. $TARGET/.mcp.json 에서 GITHUB_TOKEN 환경변수를 설정하세요"
 echo "  3. $TARGET/Dockerfile 에서 JAVA_VERSION, 포트를 확인하세요"
-echo "  4. $TARGET/.github/workflows/ci.yml 에서 TODO 항목을 수정하세요"
-echo "  5. Claude Code에서 /verify, /java-review, /java-test, /java-build 커맨드를 사용하세요"
+echo "  4. Claude Code에서 /verify, /java-review, /java-test, /java-build 커맨드를 사용하세요"

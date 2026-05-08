@@ -47,8 +47,6 @@ skills:
   - hexagonal-architecture
   - api-design
   - architecture-decision-records
-  - deployment-patterns
-  - docker-patterns
   - git-workflow
   - github-ops
 
