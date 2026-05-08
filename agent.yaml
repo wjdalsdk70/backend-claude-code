@@ -53,12 +53,12 @@ rules:
   - security
   - hooks
   - architecture
+  - controller-patterns
+  - dto-patterns
+  - entity-patterns
+  - repository-patterns
+  - service-patterns
   - error-handling
-  - patterns/controller-patterns
-  - patterns/dto-patterns
-  - patterns/entity-patterns
-  - patterns/repository-patterns
-  - patterns/service-patterns
 
 mcp:
   - github

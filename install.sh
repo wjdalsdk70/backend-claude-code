@@ -31,14 +31,13 @@ _copy_if_absent() {
   fi
 }
 
-# rules 복사 (서브디렉토리 포함)
+# rules 복사
 echo "  rules 복사..."
-while IFS= read -r src; do
-  rel="${src#$SCRIPT_DIR/rules/}"
-  dest="$TARGET/.claude/rules/$rel"
-  mkdir -p "$(dirname "$dest")"
-  _copy_if_absent "$src" "$dest" "rules/$rel"
-done < <(find "$SCRIPT_DIR/rules" -name "*.md" -type f)
+for src in "$SCRIPT_DIR/rules/"*.md; do
+  [ -f "$src" ] || continue
+  fname=$(basename "$src")
+  _copy_if_absent "$src" "$TARGET/.claude/rules/$fname" "rules/$fname"
+done
 
 # agents 복사
 echo "  agents 복사..."
