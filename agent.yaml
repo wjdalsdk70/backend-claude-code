@@ -32,7 +32,6 @@ commands:
   - git-commit
   - git-pr
   - git-issue
-  - review-pr
   - db-migrate
 
 skills:
