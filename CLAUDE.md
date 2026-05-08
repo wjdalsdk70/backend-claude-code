@@ -58,23 +58,45 @@ src/test/java/com/example/
 ## 개발 워크플로우
 
 ```
-1. 기능 계획 (/java-review or planner 에이전트)
-2. 테스트 먼저 작성 (/java-test)
-3. 구현 → 빌드 검증 (/java-build)
-4. 코드 리뷰 (/java-review)
-5. 보안 확인 (security-reviewer 에이전트)
-6. ./mvnw verify 통과 후 커밋
+1. 기능 계획   → /dev plan  (코드베이스 분석 후 계획서 작성)
+2. 구현 & 검증 → /dev run   (계획서 기반 구현 + 빌드 확인)
+3. 테스트      → /dev test  (TDD 워크플로우, 테스트 먼저 작성)
+4. 리뷰        → /dev review (로컬 변경 또는 PR 종합 리뷰)
+5. 커밋        → /git commit
+6. PR 생성     → /git pr
 ```
 
-## 주요 슬래시 커맨드
+전체 파이프라인 한 번에: `/dev`
+
+## 슬래시 커맨드
+
+### dev — 개발 워크플로우
 
 | 커맨드 | 설명 |
 |--------|------|
-| `/java-review` | Java/Spring Boot 코드 품질 리뷰 |
-| `/java-build` | 빌드 오류 진단 및 수정 |
-| `/java-test` | TDD 워크플로우 (테스트 먼저) |
-| `/code-review` | 로컬 변경 또는 PR 종합 리뷰 |
-| `/build-fix` | 빌드 에러 자동 수정 |
+| `/dev` | 계획 → 구현 → 테스트 전체 워크플로우 |
+| `/dev plan` | 코드베이스 분석 후 구현 계획서 작성 |
+| `/dev run` | 계획서 기반 코드 구현 및 검증 |
+| `/dev test` | TDD 워크플로우 (테스트 먼저 작성) |
+| `/dev review` | 로컬 변경(Java 특화) 또는 PR 종합 리뷰 |
+| `/dev build` | 빌드 오류 진단 및 수정 |
+| `/dev fix` | 빌드 에러 자동 수정 |
+| `/dev verify` | 빌드·정적분석·테스트·커버리지·보안 전체 검증 |
+| `/dev coverage` | 커버리지 분석 및 미달 영역 테스트 생성 |
+
+### git — GitHub 워크플로우
+
+| 커맨드 | 설명 |
+|--------|------|
+| `/git commit` | 변경사항 커밋 |
+| `/git pr` | PR 자동 생성 (push → PR → CI 확인) |
+| `/git issue` | 이슈 생성 (`bug` / `feat`) |
+
+### 기타
+
+| 커맨드 | 설명 |
+|--------|------|
+| `/db-migrate` | DB 마이그레이션 실행·상태 확인·롤백 |
 
 ## 에이전트
 
@@ -85,6 +107,9 @@ src/test/java/com/example/
 | `security-reviewer` | 보안 취약점 분석 | 인증/인가/입력처리 변경 시 |
 | `tdd-guide` | TDD 워크플로우 안내 | 새 기능/버그수정 시 |
 | `planner` | 기능 구현 계획 수립 | 복잡한 기능 시작 전 |
+| `database-reviewer` | DB 쿼리·스키마 최적화 | JPA/SQL 변경 시 |
+| `performance-optimizer` | 성능 병목 분석 | 성능 이슈 발생 시 |
+| `code-reviewer` | 코드 품질 종합 리뷰 | PR 리뷰 시 |
 
 ## 핵심 규칙
 
@@ -104,3 +129,8 @@ src/test/java/com/example/
 | 보안 설정 | `springboot-security` |
 | TDD 패턴 | `springboot-tdd` |
 | 코딩 표준 | `java-coding-standards` |
+| DB 마이그레이션 | `database-migrations` |
+| PostgreSQL 쿼리/인덱스 | `postgres-patterns` |
+| 헥사고날 아키텍처 | `hexagonal-architecture` |
+| REST API 설계 원칙 | `api-design` |
+| ADR 작성 | `architecture-decision-records` |
