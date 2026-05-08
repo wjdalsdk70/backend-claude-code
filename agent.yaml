@@ -51,8 +51,14 @@ rules:
   - coding-style
   - testing
   - security
-  - patterns
   - hooks
+  - architecture
+  - controller-patterns
+  - dto-patterns
+  - entity-patterns
+  - repository-patterns
+  - service-patterns
+  - error-handling
 
 mcp:
   - github
