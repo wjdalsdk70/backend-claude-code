@@ -40,7 +40,6 @@ skills:
   - springboot-tdd
   - jpa-patterns
   - java-coding-standards
-  - springboot-verification
   - database-migrations
   - postgres-patterns
   - hexagonal-architecture
