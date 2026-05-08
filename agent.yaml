@@ -33,6 +33,7 @@ commands:
   - prp-commit
   - prp-pr
   - review-pr
+  - create-issue
   - test-coverage
 
 skills:
