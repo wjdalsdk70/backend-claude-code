@@ -48,13 +48,6 @@ skills:
   - architecture-decision-records
 
 rules:
-  - common/coding-style
-  - common/testing
-  - common/security
-  - common/patterns
-  - common/git-workflow
-  - common/code-review
-  - common/development-workflow
   - java/coding-style
   - java/testing
   - java/security

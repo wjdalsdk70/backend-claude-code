@@ -13,7 +13,7 @@ if [ ! -d "$TARGET" ]; then
 fi
 
 # .claude 하위 디렉토리 생성
-mkdir -p "$TARGET/.claude"/{rules/common,rules/java,agents,commands,skills}
+mkdir -p "$TARGET/.claude"/{rules/java,agents,commands,skills}
 
 TRACKING_FILE="$TARGET/.claude/.installed-files"
 # 트래킹 파일 초기화 (누적 — 재설치 시 새 파일만 추가)
@@ -31,9 +31,9 @@ _copy_if_absent() {
   fi
 }
 
-# rules 복사 (공통 + Java)
+# rules 복사 (Java)
 echo "  rules 복사..."
-for rule_dir in common java; do
+for rule_dir in java; do
   for src in "$SCRIPT_DIR/rules/$rule_dir/"*.md; do
     [ -f "$src" ] || continue
     fname=$(basename "$src")
