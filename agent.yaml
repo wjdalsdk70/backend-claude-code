@@ -1,0 +1,49 @@
+spec_version: 0.1.0
+name: backend-claude-code
+version: 1.0.0
+description: Java/Spring Boot 백엔드 프로젝트를 위한 Claude Code 설정
+author: backend-team
+license: MIT
+
+model:
+  preferred: claude-sonnet-4-6
+  fallback:
+    - claude-haiku-4-5-20251001
+
+agents:
+  - java-reviewer
+  - java-build-resolver
+  - security-reviewer
+  - tdd-guide
+  - planner
+
+commands:
+  - java-review
+  - java-build
+  - java-test
+  - code-review
+  - build-fix
+
+skills:
+  - springboot-patterns
+  - springboot-security
+  - springboot-tdd
+  - jpa-patterns
+  - java-coding-standards
+
+rules:
+  - common/coding-style
+  - common/testing
+  - common/security
+  - common/patterns
+  - common/git-workflow
+  - java/coding-style
+  - java/testing
+  - java/security
+  - java/patterns
+  - java/hooks
+
+mcp:
+  - github
+  - context7
+  - sequential-thinking
