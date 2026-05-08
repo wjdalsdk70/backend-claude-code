@@ -28,8 +28,8 @@ commands:
   - build-fix
   - verify
   - db-migrate
-  - prp-plan
-  - prp-implement
+  - dev-plan
+  - dev-impl
   - git-commit
   - git-pr
   - review-pr
