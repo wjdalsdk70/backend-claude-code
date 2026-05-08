@@ -79,6 +79,28 @@ else
   echo "  .github/workflows/ci.yml 복사 완료 — secrets 설정 및 TODO 항목을 확인하세요"
 fi
 
+# GitHub PR 템플릿 복사 (기존 파일 있으면 스킵)
+if [ -f "$TARGET/.github/PULL_REQUEST_TEMPLATE.md" ]; then
+  echo "  .github/PULL_REQUEST_TEMPLATE.md 이미 존재합니다. 스킵합니다."
+else
+  mkdir -p "$TARGET/.github"
+  cp "$SCRIPT_DIR/.github/PULL_REQUEST_TEMPLATE.md" "$TARGET/.github/PULL_REQUEST_TEMPLATE.md"
+  echo "  .github/PULL_REQUEST_TEMPLATE.md 복사 완료"
+fi
+
+# GitHub 이슈 템플릿 복사
+echo "  이슈 템플릿 복사..."
+mkdir -p "$TARGET/.github/ISSUE_TEMPLATE"
+for tmpl in "$SCRIPT_DIR/.github/ISSUE_TEMPLATE/"*.md; do
+  fname=$(basename "$tmpl")
+  if [ -f "$TARGET/.github/ISSUE_TEMPLATE/$fname" ]; then
+    echo "    $fname 이미 존재합니다. 스킵합니다."
+  else
+    cp "$tmpl" "$TARGET/.github/ISSUE_TEMPLATE/$fname"
+    echo "    $fname 복사 완료"
+  fi
+done
+
 echo ""
 echo "설치 완료!"
 echo ""

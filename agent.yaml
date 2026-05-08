@@ -18,6 +18,7 @@ agents:
   - planner
   - database-reviewer
   - performance-optimizer
+  - code-reviewer
 
 commands:
   - java-review
@@ -30,6 +31,8 @@ commands:
   - prp-plan
   - prp-implement
   - prp-commit
+  - prp-pr
+  - review-pr
   - test-coverage
 
 skills:
@@ -46,6 +49,8 @@ skills:
   - architecture-decision-records
   - deployment-patterns
   - docker-patterns
+  - git-workflow
+  - github-ops
 
 rules:
   - common/coding-style
@@ -53,6 +58,8 @@ rules:
   - common/security
   - common/patterns
   - common/git-workflow
+  - common/code-review
+  - common/development-workflow
   - java/coding-style
   - java/testing
   - java/security
