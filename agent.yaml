@@ -48,11 +48,11 @@ skills:
   - architecture-decision-records
 
 rules:
-  - java/coding-style
-  - java/testing
-  - java/security
-  - java/patterns
-  - java/hooks
+  - coding-style
+  - testing
+  - security
+  - patterns
+  - hooks
 
 mcp:
   - github
