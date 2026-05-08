@@ -15,109 +15,87 @@ fi
 # .claude 하위 디렉토리 생성
 mkdir -p "$TARGET/.claude"/{rules/common,rules/java,agents,commands,skills}
 
-# rules 복사 (공통 + Java) — 기존 파일 스킵
+TRACKING_FILE="$TARGET/.claude/.installed-files"
+# 트래킹 파일 초기화 (누적 — 재설치 시 새 파일만 추가)
+touch "$TRACKING_FILE"
+
+# 복사 후 트래킹 파일에 경로를 기록하는 헬퍼
+_copy_if_absent() {
+  local src="$1" dest="$2" label="$3"
+  if [ -f "$dest" ]; then
+    echo "    $label 이미 존재합니다. 스킵합니다."
+  else
+    cp "$src" "$dest"
+    echo "$dest" >> "$TRACKING_FILE"
+    echo "    $label 복사 완료"
+  fi
+}
+
+# rules 복사 (공통 + Java)
 echo "  rules 복사..."
 for rule_dir in common java; do
   for src in "$SCRIPT_DIR/rules/$rule_dir/"*.md; do
     [ -f "$src" ] || continue
     fname=$(basename "$src")
-    dest="$TARGET/.claude/rules/$rule_dir/$fname"
-    if [ -f "$dest" ]; then
-      echo "    rules/$rule_dir/$fname 이미 존재합니다. 스킵합니다."
-    else
-      cp "$src" "$dest"
-      echo "    rules/$rule_dir/$fname 복사 완료"
-    fi
+    _copy_if_absent "$src" "$TARGET/.claude/rules/$rule_dir/$fname" "rules/$rule_dir/$fname"
   done
 done
 
-# agents 복사 — 기존 파일 스킵
+# agents 복사
 echo "  agents 복사..."
 for src in "$SCRIPT_DIR/agents/"*.md; do
   fname=$(basename "$src")
-  dest="$TARGET/.claude/agents/$fname"
-  if [ -f "$dest" ]; then
-    echo "    agents/$fname 이미 존재합니다. 스킵합니다."
-  else
-    cp "$src" "$dest"
-    echo "    agents/$fname 복사 완료"
-  fi
+  _copy_if_absent "$src" "$TARGET/.claude/agents/$fname" "agents/$fname"
 done
 
-# commands 복사 — 기존 파일 스킵
+# commands 복사
 echo "  commands 복사..."
 for src in "$SCRIPT_DIR/commands/"*.md; do
   fname=$(basename "$src")
-  dest="$TARGET/.claude/commands/$fname"
-  if [ -f "$dest" ]; then
-    echo "    commands/$fname 이미 존재합니다. 스킵합니다."
-  else
-    cp "$src" "$dest"
-    echo "    commands/$fname 복사 완료"
-  fi
+  _copy_if_absent "$src" "$TARGET/.claude/commands/$fname" "commands/$fname"
 done
 
-# skills 복사 — 기존 파일 스킵
+# skills 복사
 echo "  skills 복사..."
 for skill_dir in "$SCRIPT_DIR/skills"/*/; do
   skill_name=$(basename "$skill_dir")
   mkdir -p "$TARGET/.claude/skills/$skill_name"
-  dest="$TARGET/.claude/skills/$skill_name/SKILL.md"
-  if [ -f "$dest" ]; then
-    echo "    skills/$skill_name/SKILL.md 이미 존재합니다. 스킵합니다."
-  else
-    cp "$skill_dir/SKILL.md" "$dest"
-    echo "    skills/$skill_name/SKILL.md 복사 완료"
-  fi
+  _copy_if_absent "$skill_dir/SKILL.md" "$TARGET/.claude/skills/$skill_name/SKILL.md" "skills/$skill_name/SKILL.md"
 done
 
-# settings.json 복사 (기존 파일이 있으면 병합 필요하다고 안내)
-if [ -f "$TARGET/.claude/settings.json" ]; then
-  echo "  .claude/settings.json 이미 존재합니다."
-  echo "  $SCRIPT_DIR/.claude/settings.json 의 내용을 수동으로 병합하세요."
+# settings.json 복사
+_copy_if_absent "$SCRIPT_DIR/.claude/settings.json" "$TARGET/.claude/settings.json" ".claude/settings.json"
+if grep -qx "$TARGET/.claude/settings.json" "$TRACKING_FILE" 2>/dev/null; then
+  : # 방금 복사됨
 else
-  cp "$SCRIPT_DIR/.claude/settings.json" "$TARGET/.claude/settings.json"
-  echo "  .claude/settings.json 복사 완료"
+  echo "  .claude/settings.json — 수동으로 병합하세요: $SCRIPT_DIR/.claude/settings.json"
 fi
 
-# .mcp.json 복사 (기존 파일 있으면 안내)
-if [ -f "$TARGET/.mcp.json" ]; then
-  echo "  .mcp.json 이미 존재합니다."
-  echo "  $SCRIPT_DIR/.mcp.json 의 내용을 수동으로 병합하세요."
+# .mcp.json 복사
+_copy_if_absent "$SCRIPT_DIR/.mcp.json" "$TARGET/.mcp.json" ".mcp.json"
+if grep -qx "$TARGET/.mcp.json" "$TRACKING_FILE" 2>/dev/null; then
+  :
 else
-  cp "$SCRIPT_DIR/.mcp.json" "$TARGET/.mcp.json"
-  echo "  .mcp.json 복사 완료"
+  echo "  .mcp.json — 수동으로 병합하세요: $SCRIPT_DIR/.mcp.json"
 fi
 
-# CLAUDE.md 생성 (기존 파일 있으면 스킵)
-if [ -f "$TARGET/CLAUDE.md" ]; then
-  echo "  CLAUDE.md 이미 존재합니다. 스킵합니다."
-else
-  cp "$SCRIPT_DIR/CLAUDE.md" "$TARGET/CLAUDE.md"
-  echo "  CLAUDE.md 생성 완료 — 프로젝트에 맞게 커스터마이징하세요"
-fi
+# CLAUDE.md 생성
+_copy_if_absent "$SCRIPT_DIR/CLAUDE.md" "$TARGET/CLAUDE.md" "CLAUDE.md"
 
-# GitHub PR 템플릿 복사 (기존 파일 있으면 스킵)
-if [ -f "$TARGET/.github/PULL_REQUEST_TEMPLATE.md" ]; then
-  echo "  .github/PULL_REQUEST_TEMPLATE.md 이미 존재합니다. 스킵합니다."
-else
-  mkdir -p "$TARGET/.github"
-  cp "$SCRIPT_DIR/.github/PULL_REQUEST_TEMPLATE.md" "$TARGET/.github/PULL_REQUEST_TEMPLATE.md"
-  echo "  .github/PULL_REQUEST_TEMPLATE.md 복사 완료"
-fi
+# GitHub PR 템플릿 복사
+mkdir -p "$TARGET/.github"
+_copy_if_absent "$SCRIPT_DIR/.github/PULL_REQUEST_TEMPLATE.md" "$TARGET/.github/PULL_REQUEST_TEMPLATE.md" ".github/PULL_REQUEST_TEMPLATE.md"
 
 # GitHub 이슈 템플릿 복사
 echo "  이슈 템플릿 복사..."
 mkdir -p "$TARGET/.github/ISSUE_TEMPLATE"
 for tmpl in "$SCRIPT_DIR/.github/ISSUE_TEMPLATE/"*.md; do
+  [ -f "$tmpl" ] || continue
   fname=$(basename "$tmpl")
-  if [ -f "$TARGET/.github/ISSUE_TEMPLATE/$fname" ]; then
-    echo "    $fname 이미 존재합니다. 스킵합니다."
-  else
-    cp "$tmpl" "$TARGET/.github/ISSUE_TEMPLATE/$fname"
-    echo "    $fname 복사 완료"
-  fi
+  _copy_if_absent "$tmpl" "$TARGET/.github/ISSUE_TEMPLATE/$fname" ".github/ISSUE_TEMPLATE/$fname"
 done
+
+echo "$TRACKING_FILE" >> "$TRACKING_FILE"
 
 echo ""
 echo "설치 완료!"
