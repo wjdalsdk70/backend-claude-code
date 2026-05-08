@@ -12,15 +12,6 @@ Spring Boot 기반 REST API 백엔드 서비스.
 ## 빌드 명령어
 
 ```bash
-# Maven (권장)
-./mvnw clean compile              # 컴파일
-./mvnw test                       # 단위 테스트
-./mvnw verify                     # 전체 테스트 + 정적 분석
-./mvnw spring-boot:run            # 로컬 실행
-./mvnw checkstyle:check           # 스타일 검사
-./mvnw spotbugs:check             # 정적 분석
-./mvnw dependency-check:check     # CVE 스캔
-
 # Gradle
 ./gradlew compileJava             # 컴파일
 ./gradlew test                    # 단위 테스트
