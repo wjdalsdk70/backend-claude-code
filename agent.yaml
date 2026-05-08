@@ -30,7 +30,7 @@ commands:
   - db-migrate
   - prp-plan
   - prp-implement
-  - prp-commit
+  - git-commit
   - git-pr
   - review-pr
   - git-issue
