@@ -23,7 +23,7 @@ agents:
 commands:
   - java-review
   - java-build
-  - java-test
+  - dev-test
   - code-review
   - build-fix
   - verify
