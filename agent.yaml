@@ -21,20 +21,19 @@ agents:
   - code-reviewer
 
 commands:
-  - java-review
-  - java-build
+  - dev-review
+  - dev-build
+  - dev-fix
+  - dev-verify
   - dev-test
-  - code-review
-  - build-fix
-  - verify
-  - db-migrate
+  - dev-coverage
   - dev-plan
   - dev-run
   - git-commit
   - git-pr
-  - review-pr
   - git-issue
-  - test-coverage
+  - review-pr
+  - db-migrate
 
 skills:
   - springboot-patterns

@@ -21,7 +21,7 @@ Spring Boot 프로젝트의 전체 품질 게이트를 순차적으로 실행합
 ./gradlew compileJava -q 2>&1 | tail -5
 ```
 
-실패 시 즉시 중단 → `/java-build` 실행 권장.
+실패 시 즉시 중단 → `/dev build` 실행 권장.
 
 ## Phase 2 — STATIC ANALYSIS
 
@@ -86,7 +86,7 @@ Phase 4  Security Scan      PASS | FAIL | SKIP   (N CVEs)
 Overall: PASS | FAIL
 
 Next steps:
-  - FAIL Build    → /java-build
+  - FAIL Build    → /dev build
   - FAIL Tests    → /java-test
   - Low Coverage  → /test-coverage
   - CVEs found    → security-reviewer 에이전트

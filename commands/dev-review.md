@@ -1,9 +1,9 @@
 ---
-description: 코드 리뷰 — 로컬 미커밋 변경사항 또는 GitHub PR 리뷰 (PR 번호/URL 전달 시 PR 모드)
-argument-hint: [pr-number | pr-url | blank for local review]
+description: 코드 리뷰 — 로컬 변경사항(Java 특화) 또는 GitHub PR 리뷰 (PR 번호/URL 전달 시 PR 모드)
+argument-hint: [pr-number | pr-url | file-path | blank for all changes]
 ---
 
-# Code Review
+# Dev Review
 
 **Input**: $ARGUMENTS
 
@@ -21,12 +21,15 @@ argument-hint: [pr-number | pr-url | blank for local review]
 
 ## Local Review Mode
 
-미커밋 변경사항의 종합 보안 및 품질 리뷰.
-
 ### Phase 1 — GATHER
 
 ```bash
 git diff --name-only HEAD
+```
+
+특정 파일 지정 시 (`$ARGUMENTS`):
+```bash
+git diff HEAD -- "$ARGUMENTS"
 ```
 
 변경된 파일 없으면 종료: "리뷰할 내용이 없습니다."
@@ -38,9 +41,12 @@ git diff --name-only HEAD
 ./gradlew compileJava -q 2>&1 | tail -5
 ```
 
+컴파일 실패 시 → `/dev build` 실행 먼저.
+
 ### Phase 3 — REVIEW
 
-각 변경 파일 전체 읽기. 확인 항목:
+Java 파일이 포함된 경우 `java-reviewer` 에이전트에 위임한다.
+그 외 파일은 직접 리뷰한다.
 
 **Security Issues (CRITICAL)**
 - 하드코딩된 자격 증명, API 키, 토큰
@@ -63,13 +69,12 @@ git diff --name-only HEAD
 - 50줄 이상 함수
 - 800줄 이상 파일
 - 중첩 깊이 > 4
-- 오류 처리 누락
-- 빈 catch 블록
+- 오류 처리 누락, 빈 catch 블록
 
 ### Phase 4 — REPORT
 
 ```
-Code Review — <날짜>
+Dev Review — <날짜>
 Files Changed: N
 
 CRITICAL: N issues
@@ -102,8 +107,6 @@ gh pr diff <NUMBER>
 ### Phase 2 — REVIEW
 
 변경된 파일 **전체** 읽기 (diff만 아님).
-
-리뷰 카테고리:
 
 | 카테고리 | 확인 내용 |
 |---------|---------|

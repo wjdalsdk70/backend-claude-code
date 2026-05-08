@@ -451,7 +451,7 @@ If this plan was generated from a PRD phase:
 - **Risks**: [top risk or "none identified"]
 - **Confidence Score**: [1-10] — likelihood of single-pass implementation
 
-> Next step: Run `/dev impl .claude/PRPs/plans/{name}.plan.md` to execute this plan.
+> Next step: Run `/dev run .claude/PRPs/plans/{name}.plan.md` to execute this plan.
 ```
 
 ---
@@ -496,6 +496,6 @@ A developer unfamiliar with this codebase should be able to implement the featur
 
 ## Next Steps
 
-- Run `/dev impl <plan-path>` to execute this plan
+- Run `/dev run <plan-path>` to execute this plan
 - Run `/plan` for quick conversational planning without artifacts
 ````
