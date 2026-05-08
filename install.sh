@@ -62,14 +62,6 @@ else
   echo "  CLAUDE.md 생성 완료 — 프로젝트에 맞게 커스터마이징하세요"
 fi
 
-# Dockerfile 복사 (기존 파일 있으면 스킵)
-if [ -f "$TARGET/Dockerfile" ]; then
-  echo "  Dockerfile 이미 존재합니다. 스킵합니다."
-else
-  cp "$SCRIPT_DIR/Dockerfile" "$TARGET/Dockerfile"
-  echo "  Dockerfile 복사 완료 — JAVA_VERSION, APP_PORT를 프로젝트에 맞게 수정하세요"
-fi
-
 # GitHub PR 템플릿 복사 (기존 파일 있으면 스킵)
 if [ -f "$TARGET/.github/PULL_REQUEST_TEMPLATE.md" ]; then
   echo "  .github/PULL_REQUEST_TEMPLATE.md 이미 존재합니다. 스킵합니다."
@@ -98,5 +90,4 @@ echo ""
 echo "다음 단계:"
 echo "  1. $TARGET/CLAUDE.md 를 프로젝트에 맞게 수정하세요"
 echo "  2. $TARGET/.mcp.json 에서 GITHUB_TOKEN 환경변수를 설정하세요"
-echo "  3. $TARGET/Dockerfile 에서 JAVA_VERSION, 포트를 확인하세요"
-echo "  4. Claude Code에서 /verify, /java-review, /java-test, /java-build 커맨드를 사용하세요"
+echo "  3. Claude Code에서 /verify, /java-review, /java-test, /java-build 커맨드를 사용하세요"
