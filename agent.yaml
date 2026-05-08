@@ -31,9 +31,9 @@ commands:
   - prp-plan
   - prp-implement
   - prp-commit
-  - prp-pr
+  - git-pr
   - review-pr
-  - create-issue
+  - git-issue
   - test-coverage
 
 skills:
