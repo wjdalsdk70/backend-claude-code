@@ -21,6 +21,7 @@ agents:
   - code-reviewer
 
 commands:
+  - dev
   - dev-review
   - dev-build
   - dev-fix
