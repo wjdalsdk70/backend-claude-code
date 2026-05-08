@@ -16,6 +16,8 @@ agents:
   - security-reviewer
   - tdd-guide
   - planner
+  - database-reviewer
+  - performance-optimizer
 
 commands:
   - java-review
@@ -23,6 +25,12 @@ commands:
   - java-test
   - code-review
   - build-fix
+  - verify
+  - db-migrate
+  - prp-plan
+  - prp-implement
+  - prp-commit
+  - test-coverage
 
 skills:
   - springboot-patterns
@@ -30,6 +38,14 @@ skills:
   - springboot-tdd
   - jpa-patterns
   - java-coding-standards
+  - springboot-verification
+  - database-migrations
+  - postgres-patterns
+  - hexagonal-architecture
+  - api-design
+  - architecture-decision-records
+  - deployment-patterns
+  - docker-patterns
 
 rules:
   - common/coding-style
