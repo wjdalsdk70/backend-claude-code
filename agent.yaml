@@ -45,8 +45,6 @@ skills:
   - hexagonal-architecture
   - api-design
   - architecture-decision-records
-  - git-workflow
-  - github-ops
 
 rules:
   - common/coding-style
