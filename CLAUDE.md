@@ -93,18 +93,17 @@ src/test/java/com/example/
 
 | 에이전트 | 용도 | 언제 사용 |
 |---------|------|----------|
-| `java-reviewer` | Java/Spring Boot 코드 리뷰 | 코드 수정 후 항상 |
+| `code-reviewer` | Java/Spring Boot 코드 리뷰 | 코드 수정 후 항상 |
 | `java-build-resolver` | 빌드/컴파일 에러 수정 | 빌드 실패 시 |
 | `security-reviewer` | 보안 취약점 분석 | 인증/인가/입력처리 변경 시 |
 | `tdd-guide` | TDD 워크플로우 안내 | 새 기능/버그수정 시 |
 | `planner` | 기능 구현 계획 수립 | 복잡한 기능 시작 전 |
 | `database-reviewer` | DB 쿼리·스키마 최적화 | JPA/SQL 변경 시 |
-| `performance-optimizer` | 성능 병목 분석 | 성능 이슈 발생 시 |
-| `code-reviewer` | 코드 품질 종합 리뷰 | PR 리뷰 시 |
+| `java-performance-reviewer` | JVM·N+1·커넥션 풀·캐시 성능 분석 | 성능 이슈 발생 시 |
 
 ## 핵심 규칙
 
-1. **코드 수정 후**: 반드시 `java-reviewer` 에이전트 실행
+1. **코드 수정 후**: 반드시 `code-reviewer` 에이전트 실행
 2. **새 기능**: TDD 워크플로우 준수 (테스트 RED → 구현 GREEN → 리팩토링)
 3. **빌드 실패**: `java-build-resolver` 에이전트 사용, 증상 억제 금지
 4. **보안 코드**: `security-reviewer` 실행 필수 (인증/DB쿼리/파일처리)
